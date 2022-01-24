@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 const api = {
   key : 'f6fe93b9639c92a2f1d0d9888f6c39a7',
@@ -15,7 +15,7 @@ function App() {
       fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
         .then(res => res.json())
         .then(result => {
-          setWeather(result)
+          setWeather(result);
           setQuery('');
           console.log(result);
         });
@@ -37,7 +37,11 @@ function App() {
   }
 
   return (
-    <div className = "App">
+    <div className = {(typeof weather.main != "undefined") 
+                        ? ((weather.main.temp >16) 
+                            ? 'app warm' 
+                            : 'app') 
+                            : 'app'}>
       <main>
         <div className = "search-box">
           <input 
@@ -49,22 +53,23 @@ function App() {
             onKeyPress={search}
           />
         </div>
+        {(typeof weather.main != "undefined") ? ( 
+        <div>
         <div className="location-box">
           <div className="location">{weather.name}, {weather.sys.country}</div>
           <div className='date'>{dateBuilder(new Date())}</div>
         </div>
         <div className='weather-box'>
           <div className="temp">
-            ℃
+          {Math.round(weather.main.temp)}℃
           </div>
-          <div className='weather'></div>
+          <div className='weather'>{weather.weather[0].main}</div>
         </div>
+      </div>
+        ) : ('')}
       </main>
     </div>
   );
 }
 
 export default App;
-// {Math.round(weather.main.temp)} {weather.weather[0].main}
-        {/* {(typeof weather.main != "undefined") ? (  */}
-        {/* ) : ('')} */}

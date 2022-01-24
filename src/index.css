@@ -9,10 +9,10 @@ body {
 }
 
 .app {
-  background-position: url("../img/cold.jpg");
+  background-image: url("../img/cold.jpg");
   background-size: cover;
   background-position: bottom;
-  transition: 0.4 ease-out;
+  transition: 0.4 ease;
 }
 
 .app.warm {
